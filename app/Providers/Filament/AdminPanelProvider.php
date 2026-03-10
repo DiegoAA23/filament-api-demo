@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->sidebarCollapsibleOnDesktop()
             ->topbar(false)
+            ->authGuard('api-session')
             ->sidebarWidth('15rem')
             ->login(CustomLogin::class)
             ->colors([
