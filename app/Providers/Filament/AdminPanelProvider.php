@@ -28,10 +28,12 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->sidebarCollapsibleOnDesktop()
             ->topbar(false)
             ->authGuard('api-session')
             ->sidebarWidth('15rem')
+            ->brandName('API Demo')
             ->login(CustomLogin::class)
             ->colors([
                 'primary' => Color::Amber,

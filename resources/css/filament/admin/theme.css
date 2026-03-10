@@ -1,0 +1,13 @@
+@import "../../../../vendor/filament/filament/resources/css/theme.css";
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+.fi-main {
+    border-radius: 20px !important;
+    padding: 50px !important;
+    max-width: 150% !important;
+    border-color: #e5e5e5 !important;
+    border-width: 0.5px !important;
+    margin-block: px !important;
+}
