@@ -1,8 +1,5 @@
 <x-filament-panels::page>
-    <script>
-        window.PHP_SESSION = @json(session('api_token'));
-    </script>
-    <div id="app">
+    <div id="app" data-api-token="{{ session('api_token') }}">
         <table-component></table-component>
     </div>
 </x-filament-panels::page>

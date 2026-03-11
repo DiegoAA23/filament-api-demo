@@ -9,46 +9,39 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import axios from 'axios';
-
-const baseUrl = 'https://va-backend.test/api/v1/organizations';
-const token = ref(null);
-
-onMounted(() => {
-    if (window.PHP_SESSION) {
-        token.value = window.PHP_SESSION;
-        console.log('hay sesion', token.value)
-    }
-});
-
-axios.get(baseUrl, {
-    headers: {
-        Authorization: `Bearer ${token}`
-    }
-})
-    .then(response => {
-        console.log('Datos recibidos:', response.data);
-    })
-    .catch(error => {
-        console.log(token.value);
-        console.error('Error en la petición:', error);
-    });
+import { defineComponent, ref, onMounted } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import axios from 'axios'
 
 export default defineComponent({
-    components: { DataTable, Column },
-    setup() {
-        const organizations = ref([
-            { name: 'Product 1', category: 'Cat A', quantity: 10 },
-            { name: 'Product 2', category: 'Cat B', quantity: 20 },
-            { name: 'Product 3', category: 'Cat A', quantity: 5 },
-        ]);
+  components: { DataTable, Column },
+  setup() {
+    const organizations = ref([])
+    const selectedOrganizations = ref([])
 
+    const root = document.getElementById('app')
+    const token = root?.dataset?.apiToken ?? null
 
+    onMounted(async () => {
+      if (!token) {
+        console.error('No hay token en #app[data-api-token]')
+        return
+      }
 
-        return { organizations };
-    },
-});
+      try {
+        const response = await axios.get('https://va-backend.test/api/v1/organizations', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+
+        organizations.value = response.data?.data ?? []
+      } catch (error) {
+        console.error('Error en la petición:', error)
+      }
+    })
+
+    return { organizations, selectedOrganizations }
+  },
+})
 </script>
+
