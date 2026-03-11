@@ -49,7 +49,7 @@ class CustomLogin extends Login
 
         $user = new ApiUser($apiUserData);
         $user->exists = true;
-
+        //dd($response->json());
         Auth::guard('api-session')->login($user);
         session()->regenerate();
 
